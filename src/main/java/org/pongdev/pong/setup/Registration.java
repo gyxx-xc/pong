@@ -1,6 +1,7 @@
 package org.pongdev.pong.setup;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -22,8 +23,10 @@ public class Registration {
 
     public static final RegistryObject<Item> CHAMPAGNE = ITEMS.register(Champagne.ID, Champagne::new);
 
-    public static final RegistryObject<CreativeModeTab> MODTAB = CREATIVE_MODE_TABS.register("pong_tab",
+    public static final String MODTAB_ID ="pong_tab";
+    public static final RegistryObject<CreativeModeTab> MODTAB = CREATIVE_MODE_TABS.register(MODTAB_ID,
             () -> CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup." + MODTAB_ID))
                     .withTabsBefore(CreativeModeTabs.COMBAT)
                     .icon(() -> CHAMPAGNE.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
