@@ -11,15 +11,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.pongdev.pong.Pong;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault // no warning then...
 public class Champagne extends Item {
     public static final String ID = "champagne";
     public Champagne() {
-        super(new Item.Properties());
+        super(new Item.Properties().durability(1000));
     }
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         CompoundTag compoundTag = itemStack.getTag();
         if(compoundTag == null) {
@@ -51,20 +55,50 @@ public class Champagne extends Item {
             Vec3 view0 = new Vec3(compoundTag.getDouble("lastX"),
                     compoundTag.getDouble("lastY"),
                     compoundTag.getDouble("lastZ"));
-            double d = Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0));
+            int d = (int)(Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0))*5);
             compoundTag.putDouble("lastX", view.x);
             compoundTag.putDouble("lastY", view.y);
             compoundTag.putDouble("lastZ", view.z);
+            itemStack.setDamageValue(itemStack.getDamageValue()+d);
         }
     }
 
     @Override
-    public void inventoryTick(ItemStack p_41404_, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_) {
-        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_, p_41408_);
+    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
+        if(pIsSelected){
+            CompoundTag compoundTag = pStack.getTag();
+            if(compoundTag == null) return;
+            if(pEntity instanceof Player){
+                Vec3 view = pEntity.getViewVector(1.0f);
+                Vec3 view0 = new Vec3(compoundTag.getDouble("lastX"),
+                        compoundTag.getDouble("lastY"),
+                        compoundTag.getDouble("lastZ"));
+                int d = (int)(Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0))*5);
+                compoundTag.putDouble("lastX", view.x);
+                compoundTag.putDouble("lastY", view.y);
+                compoundTag.putDouble("lastZ", view.z);
+                pStack.setDamageValue(pStack.getDamageValue()+d);
+            }
+        }
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack p_41452_) {
-        return UseAnim.EAT;
+    public @NotNull UseAnim getUseAnimation(ItemStack p_41452_) {
+        return UseAnim.EAT; // TODO: get a better anim
+    }
+
+    @Override
+    public boolean isBarVisible(ItemStack itemStack) {
+        return itemStack.hasTag();
+    }
+
+    @Override
+    public int getBarWidth(ItemStack pStack) {
+        return Math.round((float)pStack.getDamageValue() * 13.0F / (float)this.getMaxDamage(pStack));
+    }
+
+    @Override
+    public int getMaxStackSize(ItemStack stack) {
+        return 64;
     }
 }
