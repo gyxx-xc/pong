@@ -12,6 +12,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.pongdev.pong.Pong;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -37,28 +38,12 @@ public class Champagne extends Item {
             return InteractionResultHolder.fail(itemStack);
         }
     }
-
-    @Override
-    public int getUseDuration(ItemStack p_41454_) {
-        return 40;
-    }
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int remain) {
         CompoundTag compoundTag = itemStack.getTag();
         if(compoundTag == null) return;
         if(remain == 1){
             compoundTag.putBoolean("a", false);
-        }
-        if(livingEntity instanceof Player){
-            Vec3 view = livingEntity.getViewVector(1.0f);
-            Vec3 view0 = new Vec3(compoundTag.getDouble("lastX"),
-                    compoundTag.getDouble("lastY"),
-                    compoundTag.getDouble("lastZ"));
-            int d = (int)(Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0))*5);
-            compoundTag.putDouble("lastX", view.x);
-            compoundTag.putDouble("lastY", view.y);
-            compoundTag.putDouble("lastZ", view.z);
-            itemStack.setDamageValue(itemStack.getDamageValue()+d);
         }
     }
 
