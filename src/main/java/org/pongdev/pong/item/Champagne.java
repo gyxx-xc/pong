@@ -8,11 +8,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.pongdev.pong.Pong;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -67,15 +65,11 @@ public class Champagne extends Item {
     }
 
     @Override
-    public @NotNull UseAnim getUseAnimation(ItemStack p_41452_) {
-        return UseAnim.EAT; // TODO: get a better anim
-    }
-
-    @Override
     public boolean isBarVisible(ItemStack itemStack) {
         return itemStack.hasTag();
     }
 
+    // TODO: use a item override to do this.
     @Override
     public int getBarWidth(ItemStack pStack) {
         return Math.round((float)pStack.getDamageValue() * 13.0F / (float)this.getMaxDamage(pStack));
