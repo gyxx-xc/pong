@@ -14,6 +14,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault // no warning then...
 public class Champagne extends Item {
     public static final String ID = "champagne";
+    public static final String POWER_TAG = "power";
+    public static final String OPEN_TAG = "open";
+    private static final String X0_TAG = "X0";
+    private static final String Y0_TAG = "Y0";
+    private static final String Z0_TAG = "Z0";
+
     public Champagne() {
         super(new Item.Properties().durability(1000));
     }
@@ -29,14 +35,18 @@ public class Champagne extends Item {
             if(compoundTag == null) return;
             if(pEntity instanceof Player){
                 Vec3 view = pEntity.getViewVector(1.0f);
-                Vec3 view0 = new Vec3(compoundTag.getDouble("lastX"),
-                        compoundTag.getDouble("lastY"),
-                        compoundTag.getDouble("lastZ"));
+                Vec3 view0 = new Vec3(compoundTag.getDouble(X0_TAG),
+                        compoundTag.getDouble(Y0_TAG),
+                        compoundTag.getDouble(Z0_TAG));
                 int d = (int)(Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0))*5);
-                compoundTag.putDouble("lastX", view.x);
-                compoundTag.putDouble("lastY", view.y);
-                compoundTag.putDouble("lastZ", view.z);
-                compoundTag.putDouble("power", compoundTag.getDouble("power")+d);
+                compoundTag.putDouble(X0_TAG, view.x);
+                compoundTag.putDouble(Y0_TAG, view.y);
+                compoundTag.putDouble(Z0_TAG, view.z);
+                compoundTag.putDouble(POWER_TAG, compoundTag.getDouble(POWER_TAG)+d);
+                if(compoundTag.getDouble(POWER_TAG) >= 20 && !compoundTag.getBoolean(OPEN_TAG)){
+                    OpenChampagne.open(pStack, pEntity, pLevel);
+                    compoundTag.putBoolean(OPEN_TAG, true);
+                }
             }
         }
     }
