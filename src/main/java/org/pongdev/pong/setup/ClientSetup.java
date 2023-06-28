@@ -17,7 +17,13 @@ public class ClientSetup {
             ItemProperties.register(
                     Registration.CHAMPAGNE.get(),
                     new ResourceLocation(Pong.MODID, "power"),
-                    (itemStack, clientWorld, livingEntity, id) -> itemStack.getOrCreateTag().getFloat("power"));
+                    (itemStack, clientWorld, livingEntity, id) ->
+                            itemStack.getOrCreateTag().getFloat("power"));
+            ItemProperties.register(
+                    Registration.CHAMPAGNE.get(),
+                    new ResourceLocation(Pong.MODID, "open"),
+                    (itemStack, clientWorld, livingEntity, id) ->
+                            itemStack.getOrCreateTag().getBoolean("open") ? 1 : 0);
         });
     }
 }
