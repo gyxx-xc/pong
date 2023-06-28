@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.pongdev.pong.Pong;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -30,24 +31,30 @@ public class Champagne extends Item {
 
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
+        CompoundTag compoundTag = pStack.getTag();
+        if(compoundTag == null) return;
+        if(compoundTag.getBoolean(OPEN_TAG)) return;
         if(pIsSelected){
-            CompoundTag compoundTag = pStack.getTag();
-            if(compoundTag == null) return;
             if(pEntity instanceof Player){
                 Vec3 view = pEntity.getViewVector(1.0f);
                 Vec3 view0 = new Vec3(compoundTag.getDouble(X0_TAG),
                         compoundTag.getDouble(Y0_TAG),
                         compoundTag.getDouble(Z0_TAG));
-                int d = (int)(Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0))*5);
+                double d = (Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0))*5);
+                d -= 0.4;
                 compoundTag.putDouble(X0_TAG, view.x);
                 compoundTag.putDouble(Y0_TAG, view.y);
                 compoundTag.putDouble(Z0_TAG, view.z);
-                compoundTag.putDouble(POWER_TAG, compoundTag.getDouble(POWER_TAG)+d);
+                if(compoundTag.getDouble(POWER_TAG) > 0 || d > 0)
+                    compoundTag.putDouble(POWER_TAG, compoundTag.getDouble(POWER_TAG)+d);
                 if(compoundTag.getDouble(POWER_TAG) >= 20 && !compoundTag.getBoolean(OPEN_TAG)){
                     OpenChampagne.open(pStack, pEntity, pLevel);
                     compoundTag.putBoolean(OPEN_TAG, true);
                 }
             }
+        } else {
+            if(compoundTag.getDouble(POWER_TAG) > 0)
+                compoundTag.putDouble(POWER_TAG, compoundTag.getDouble(POWER_TAG)-0.4);
         }
     }
 

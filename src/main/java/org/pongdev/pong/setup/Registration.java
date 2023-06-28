@@ -11,6 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.pongdev.pong.Pong;
 import org.pongdev.pong.item.Champagne;
+import org.pongdev.pong.item.ChampagneSabre;
 
 public class Registration {
     public static void register(IEventBus modBus){
@@ -22,6 +23,7 @@ public class Registration {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Pong.MODID);
 
     public static final RegistryObject<Item> CHAMPAGNE = ITEMS.register(Champagne.ID, Champagne::new);
+    public static final RegistryObject<Item> CHAMPAGNE_SABRE = ITEMS.register(ChampagneSabre.ID, ChampagneSabre::new);
 
     public static final String MODTAB_ID ="pong_tab";
     public static final RegistryObject<CreativeModeTab> MODTAB = CREATIVE_MODE_TABS.register(MODTAB_ID,
@@ -31,5 +33,6 @@ public class Registration {
                     .icon(() -> CHAMPAGNE.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         output.accept(CHAMPAGNE.get());
+                        output.accept(CHAMPAGNE_SABRE.get());
                     }).build() );
 }

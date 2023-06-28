@@ -3,9 +3,11 @@ package org.pongdev.pong.item;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.pongdev.pong.Pong;
 
 public class OpenChampagne {
     public static void open(ItemStack pStack, Entity entity, Level pLevel) {
+        Pong.LOGGER.info("open");
         double power = pStack.getOrCreateTag().getDouble("power");
         playSound(entity, power, pLevel);
         emmitParticle(entity, power);
