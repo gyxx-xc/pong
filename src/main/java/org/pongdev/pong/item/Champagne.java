@@ -65,7 +65,6 @@ public class Champagne extends Item {
         return 64;
     }
 
-    // TODO: delete one item after drink
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
@@ -86,10 +85,10 @@ public class Champagne extends Item {
         if(mobEffectInstance == null) {
             pEntityLiving.addEffect(new MobEffectInstance(MobEffects.UNLUCK, 500));
             pEntityLiving.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 500));
-
         } else {
             pEntityLiving.removeEffect(Registration.DRUNK.get());
         }
+        pStack.shrink(1);
         return pStack;
     }
 }
