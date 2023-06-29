@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.pongdev.pong.Pong;
 import org.pongdev.pong.setup.Registration;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -26,8 +28,6 @@ public class Champagne extends Item {
     private static final String Y0_TAG = "Y0";
     private static final String Z0_TAG = "Z0";
 
-    private final MobEffectInstance effectInstance = new MobEffectInstance(Registration.DRUNK.get(), 500);
-
     public Champagne() {
         super(new Item.Properties());
     }
@@ -38,20 +38,20 @@ public class Champagne extends Item {
         if(compoundTag.getBoolean(OPEN_TAG)) return;
         if(pIsSelected){
             if(pEntity instanceof Player){
+                CompoundTag compoundTag1 = pEntity.getPersistentData();
                 Vec3 view = pEntity.getViewVector(1.0f);
-                Vec3 view0 = new Vec3(compoundTag.getDouble(X0_TAG),
-                        compoundTag.getDouble(Y0_TAG),
-                        compoundTag.getDouble(Z0_TAG));
+                Vec3 view0 = new Vec3(compoundTag1.getDouble(X0_TAG),
+                        compoundTag1.getDouble(Y0_TAG),
+                        compoundTag1.getDouble(Z0_TAG));
                 double d = (Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0))*5);
-                d -= 0.4;
-                compoundTag.putDouble(X0_TAG, view.x);
-                compoundTag.putDouble(Y0_TAG, view.y);
-                compoundTag.putDouble(Z0_TAG, view.z);
+                d = 0.1*Math.pow(d, 2) - 0.4;
+                compoundTag1.putDouble(X0_TAG, view.x);
+                compoundTag1.putDouble(Y0_TAG, view.y);
+                compoundTag1.putDouble(Z0_TAG, view.z);
                 if(compoundTag.getDouble(POWER_TAG) > 0 || d > 0)
                     compoundTag.putDouble(POWER_TAG, compoundTag.getDouble(POWER_TAG)+d);
-                if(compoundTag.getDouble(POWER_TAG) >= 20 && !compoundTag.getBoolean(OPEN_TAG)){
+                if(compoundTag.getDouble(POWER_TAG) >= 50 && !compoundTag.getBoolean(OPEN_TAG)){
                     OpenChampagne.open(pStack, pEntity, pLevel);
-                    compoundTag.putBoolean(OPEN_TAG, true);
                 }
             }
         } else {
@@ -65,6 +65,7 @@ public class Champagne extends Item {
         return 64;
     }
 
+    // TODO: delete one item after drink
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
@@ -81,7 +82,14 @@ public class Champagne extends Item {
     }
 
     public @NotNull ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
-        pEntityLiving.addEffect(new MobEffectInstance(effectInstance));
+        MobEffectInstance mobEffectInstance = pEntityLiving.getEffect(Registration.DRUNK.get());
+        if(mobEffectInstance == null) {
+            pEntityLiving.addEffect(new MobEffectInstance(MobEffects.UNLUCK, 500));
+            pEntityLiving.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 500));
+
+        } else {
+            pEntityLiving.removeEffect(Registration.DRUNK.get());
+        }
         return pStack;
     }
 }
