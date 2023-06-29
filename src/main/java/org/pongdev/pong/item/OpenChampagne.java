@@ -13,6 +13,7 @@ public class OpenChampagne {
         playSound(entity, power, pLevel);
         emmitParticle(entity, power);
         shootPlug(entity, power);
+        // for test only
     }
 
     // TODO: refer to how the bow do, create a plug entity
