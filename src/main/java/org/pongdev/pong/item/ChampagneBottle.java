@@ -20,7 +20,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault // no warning then...
 public class ChampagneBottle extends Item {
-    public static final String ID = "champagne";
+    public static final String ID = "champagne_bottle";
     public static final String POWER_TAG = "power";
     public static final String OPEN_TAG = "open";
     private static final String X0_TAG = "X0";
