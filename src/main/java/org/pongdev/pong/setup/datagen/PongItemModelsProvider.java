@@ -7,6 +7,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import org.pongdev.pong.Pong;
 import org.pongdev.pong.item.ChampagneBottle;
 import org.pongdev.pong.item.ChampagneSabre;
+import org.pongdev.pong.item.Goblet;
 
 public class PongItemModelsProvider extends ItemModelProvider {
     public PongItemModelsProvider(PackOutput output, ExistingFileHelper helper) {
@@ -27,5 +28,6 @@ public class PongItemModelsProvider extends ItemModelProvider {
                 .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_open")))
                 .end();
         basicItem(new ResourceLocation(Pong.MODID, ChampagneSabre.ID));
+        basicItem(new ResourceLocation(Pong.MODID, Goblet.ID));
     }
 }
