@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.pongdev.pong.Pong;
-import org.pongdev.pong.item.Champagne;
+import org.pongdev.pong.item.ChampagneBottle;
 import org.pongdev.pong.item.ChampagneSabre;
 
 public class PongItemModelsProvider extends ItemModelProvider {
@@ -15,16 +15,16 @@ public class PongItemModelsProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        basicItem(new ResourceLocation(Pong.MODID, Champagne.ID))
+        basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID))
                 // TODO: add other override 1,2,3,4 that shows the different of power
                 .override()
                 .predicate(new ResourceLocation(Pong.MODID, "power"), 16)
                 .predicate(new ResourceLocation(Pong.MODID, "open"), 0)
-                .model(basicItem(new ResourceLocation(Pong.MODID, Champagne.ID + "_1")))
+                .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_1")))
                 .end()
                 .override()
                 .predicate(new ResourceLocation(Pong.MODID, "open"), 1)
-                .model(basicItem(new ResourceLocation(Pong.MODID, Champagne.ID + "_open")))
+                .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_open")))
                 .end();
         basicItem(new ResourceLocation(Pong.MODID, ChampagneSabre.ID));
     }

@@ -9,7 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.Level;
-import org.pongdev.pong.Pong;
 import org.pongdev.pong.setup.Registration;
 
 public class ChampagneSabre extends SwordItem {
@@ -25,8 +24,8 @@ public class ChampagneSabre extends SwordItem {
                 InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         ItemStack otherStack = pPlayer.getItemInHand(otherHand);
         ItemStack thisStack = pPlayer.getItemInHand(pUsedHand);
-        if (otherStack.getItem() instanceof Champagne){
-            if(!otherStack.getOrCreateTag().getBoolean(Champagne.OPEN_TAG)) {
+        if (otherStack.getItem() instanceof ChampagneBottle){
+            if(!otherStack.getOrCreateTag().getBoolean(ChampagneBottle.OPEN_TAG)) {
                 pPlayer.startUsingItem(pUsedHand);
                 return InteractionResultHolder.success(thisStack);
             }
@@ -44,7 +43,7 @@ public class ChampagneSabre extends SwordItem {
         if(pLivingEntity instanceof Player){
             ItemStack mainItem = pLivingEntity.getItemInHand(InteractionHand.MAIN_HAND);
             ItemStack offItem = pLivingEntity.getItemInHand(InteractionHand.OFF_HAND);
-            if(mainItem.getItem() instanceof Champagne){
+            if(mainItem.getItem() instanceof ChampagneBottle){
                 mainItem.shrink(1);
             } else {
                 offItem.shrink(1);

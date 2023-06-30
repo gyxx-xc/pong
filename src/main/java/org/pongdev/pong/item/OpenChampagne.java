@@ -8,8 +8,8 @@ import org.pongdev.pong.Pong;
 public class OpenChampagne {
     public static void open(ItemStack pStack, Entity entity, Level pLevel) {
         Pong.LOGGER.info("open");
-        pStack.getOrCreateTag().putBoolean(Champagne.OPEN_TAG, true);
-        double power = pStack.getOrCreateTag().getDouble(Champagne.POWER_TAG);
+        pStack.getOrCreateTag().putBoolean(ChampagneBottle.OPEN_TAG, true);
+        double power = pStack.getOrCreateTag().getDouble(ChampagneBottle.POWER_TAG);
         playSound(entity, power, pLevel);
         emmitParticle(entity, power);
         shootPlug(entity, power);

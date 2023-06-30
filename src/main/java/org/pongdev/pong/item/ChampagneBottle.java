@@ -14,13 +14,12 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.pongdev.pong.Pong;
 import org.pongdev.pong.setup.Registration;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault // no warning then...
-public class Champagne extends Item {
+public class ChampagneBottle extends Item {
     public static final String ID = "champagne";
     public static final String POWER_TAG = "power";
     public static final String OPEN_TAG = "open";
@@ -28,7 +27,7 @@ public class Champagne extends Item {
     private static final String Y0_TAG = "Y0";
     private static final String Z0_TAG = "Z0";
 
-    public Champagne() {
+    public ChampagneBottle() {
         super(new Item.Properties());
     }
     @Override
@@ -81,13 +80,8 @@ public class Champagne extends Item {
     }
 
     public @NotNull ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
-        MobEffectInstance mobEffectInstance = pEntityLiving.getEffect(Registration.DRUNK.get());
-        if(mobEffectInstance == null) {
-            pEntityLiving.addEffect(new MobEffectInstance(MobEffects.UNLUCK, 500));
-            pEntityLiving.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 500));
-        } else {
-            pEntityLiving.removeEffect(Registration.DRUNK.get());
-        }
+        pEntityLiving.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 500));
+        pEntityLiving.addEffect(new MobEffectInstance(Registration.DRUNK.get(), 500));
         pStack.shrink(1);
         return pStack;
     }
