@@ -1,0 +1,7 @@
+run
+other
+build
+.gradle
+.idea
+*.sh
+src/generated
