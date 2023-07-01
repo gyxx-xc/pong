@@ -30,6 +30,7 @@ public class ChampagneBottle extends Item {
 
     public ChampagneBottle() {
         super(new Item.Properties());
+
     }
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
