@@ -8,15 +8,24 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple;
+import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.pongdev.pong.setup.Registration;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault // no warning then...
 public class ChampagneBottle extends Item {
@@ -29,6 +38,7 @@ public class ChampagneBottle extends Item {
 
     public ChampagneBottle() {
         super(new Item.Properties());
+        fluidSupplier = ForgeRegistries.FLUIDS.getDelegateOrThrow(Registration.SOURCE_CHAMPAGNE.get());
     }
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
@@ -84,5 +94,18 @@ public class ChampagneBottle extends Item {
         pEntityLiving.addEffect(new MobEffectInstance(Registration.DRUNK.get(), 500));
         pStack.shrink(1);
         return pStack;
+    }
+
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+        if (this.getClass() == ChampagneBottle.class)
+            return new FluidHandlerItemStackSimple(stack,1000);
+        else
+            return super.initCapabilities(stack, nbt);
+    }
+
+    private final Supplier<? extends Fluid> fluidSupplier;
+    public Fluid getFluid() {
+        return fluidSupplier.get();
     }
 }
