@@ -26,6 +26,7 @@ public class ChampagneBottle extends Item {
     private static final String X0_TAG = "X0";
     private static final String Y0_TAG = "Y0";
     private static final String Z0_TAG = "Z0";
+    public static final String CAPABILITY_TAG = "champagne_capability";
 
     public ChampagneBottle() {
         super(new Item.Properties());

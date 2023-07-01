@@ -24,19 +24,26 @@ public class Goblet extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand thisHand) {
         ItemStack thisItem = pPlayer.getItemInHand(thisHand);
-        if (!thisItem.getOrCreateTag().getString(CONTAIN_TAG).equals(""))
+        if (!thisItem.getOrCreateTag().getString(CONTAIN_TAG).equals("")) // not empty
             return super.use(pLevel, pPlayer, thisHand); // use as food
+
         InteractionHand otherHand = thisHand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         ItemStack otherItem = pPlayer.getItemInHand(otherHand);
         if(otherItem.getItem() instanceof ChampagneBottle){
-            thisItem.getOrCreateTag().putString(CONTAIN_TAG, "champagne");
-            return InteractionResultHolder.success(thisItem);
-        }
+            int remainChampagne = otherItem.getOrCreateTag().getInt(ChampagneBottle.CAPABILITY_TAG);
+            if (remainChampagne >= 100) {
+                otherItem.getOrCreateTag().putInt(ChampagneBottle.CAPABILITY_TAG, remainChampagne-100);
+                thisItem.getOrCreateTag().putString(CONTAIN_TAG, "champagne");
+                return InteractionResultHolder.success(thisItem);
+            } else {
+                return InteractionResultHolder.fail(thisItem);
+            }
+        } // TODO: add the bucket can fill the goblet too
         return InteractionResultHolder.fail(thisItem);
     }
 
     @Override
     public int getUseDuration(ItemStack pStack) {
-        return 1;
+        return 15;
     }
 }
