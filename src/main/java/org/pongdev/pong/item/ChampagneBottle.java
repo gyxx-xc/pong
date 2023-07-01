@@ -62,7 +62,10 @@ public class ChampagneBottle extends Item {
 
     @Override
     public int getMaxStackSize(ItemStack stack) {
-        return 64;
+        if(stack.getOrCreateTag().getBoolean(OPEN_TAG))
+            return 1;
+        else
+            return 64;
     }
     @Override
     public int getUseDuration(ItemStack pStack) {
