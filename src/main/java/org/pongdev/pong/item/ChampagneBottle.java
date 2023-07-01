@@ -64,26 +64,8 @@ public class ChampagneBottle extends Item {
     public int getMaxStackSize(ItemStack stack) {
         return 64;
     }
-
-    @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
-        if (itemstack.getOrCreateTag().getBoolean(OPEN_TAG)) {
-            return ItemUtils.startUsingInstantly(pLevel, pPlayer, pUsedHand);
-        } else {
-            return InteractionResultHolder.pass(pPlayer.getItemInHand(pUsedHand));
-        }
-    }
-
     @Override
     public int getUseDuration(ItemStack pStack) {
         return 15;
-    }
-
-    public @NotNull ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
-        pEntityLiving.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 500));
-        pEntityLiving.addEffect(new MobEffectInstance(Registration.DRUNK.get(), 500));
-        pStack.shrink(1);
-        return pStack;
     }
 }
