@@ -1,0 +1,12 @@
+/build
+/gradle
+gradlew
+gradlew.bat
+LICSENSE.txt
+/bin
+/.gradle
+.gradle
+.idea
+changelog.txt
+CREDITS.txt
+/run
