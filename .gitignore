@@ -1,0 +1,8 @@
+/build
+/gradle
+gradlew
+gradlew.bat
+LICSENSE.txt
+/bin
+/.gradle
+.gradle
