@@ -23,7 +23,7 @@ public class Drunk extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-
+        pLivingEntity.xRotO = 180;
     }
 
     @Override
