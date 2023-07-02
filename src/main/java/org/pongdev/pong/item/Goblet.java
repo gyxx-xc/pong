@@ -14,6 +14,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import org.pongdev.pong.Pong;
 import org.pongdev.pong.mobeffect.Drunk;
+import org.pongdev.pong.setup.Registration;
 
 public class Goblet extends Item {
     public static final String ID = "goblet";
@@ -72,6 +73,7 @@ public class Goblet extends Item {
             // but for now, the containing can only be the champagne
             if (!pLevel.isClientSide) {
                 int level = pLivingEntity.getPersistentData().getInt(Drunk.DRUNK_LEVEL);
+                pLivingEntity.addEffect(new MobEffectInstance(Registration.DRUNK.get(), 500, level));
                 if (level <= 3) {
                     pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, level));
                 } else if (level <= 5) {
