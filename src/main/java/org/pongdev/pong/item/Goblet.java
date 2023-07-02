@@ -70,13 +70,12 @@ public class Goblet extends Item {
             pStack.getOrCreateTag().putString(CONTAIN_TAG, "");
             // we may change this in the future
             // but for now, the containing can only be the champagne
-            int level = pLivingEntity.getPersistentData().getInt(Drunk.DRUNK_LEVEL);
-            Pong.LOGGER.info(((Player) pLivingEntity).toString());
-            {
+            if (!pLevel.isClientSide) {
+                int level = pLivingEntity.getPersistentData().getInt(Drunk.DRUNK_LEVEL);
                 if (level <= 3) {
-                    pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, level - 1));
+                    pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, level));
                 } else if (level <= 5) {
-                    pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, 3));
+                    pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, 4));
                     pLivingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 500, 1));
                     pLivingEntity.addEffect(new MobEffectInstance(MobEffects.JUMP, 500, (level - 3)));
                 } else if (level <= 10) {
@@ -89,8 +88,8 @@ public class Goblet extends Item {
                 } else {
                     pLivingEntity.kill();
                 }
+                pLivingEntity.getPersistentData().putInt(Drunk.DRUNK_LEVEL, level+1);
             }
-            pLivingEntity.getPersistentData().putInt(Drunk.DRUNK_LEVEL, level+1);
         } else {
             pStack.getOrCreateTag().putString(CONTAIN_TAG, "champagne");
             ItemStack otherItem = pLivingEntity.getItemInHand(
