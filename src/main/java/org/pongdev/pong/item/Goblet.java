@@ -74,9 +74,9 @@ public class Goblet extends Item {
             Pong.LOGGER.info(((Player) pLivingEntity).toString());
             {
                 if (level <= 3) {
-                    pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, level - 1));
+                    pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, level));
                 } else if (level <= 5) {
-                    pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, 3));
+                    pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, 4));
                     pLivingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 500, 1));
                     pLivingEntity.addEffect(new MobEffectInstance(MobEffects.JUMP, 500, (level - 3)));
                 } else if (level <= 10) {
