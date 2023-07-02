@@ -39,16 +39,19 @@ public class ChampagneBottle extends Item {
         if(compoundTag.getBoolean(OPEN_TAG)) return;
         if(pIsSelected){
             if(pEntity instanceof Player){
-                CompoundTag compoundTag1 = pEntity.getPersistentData();
-                Vec3 view = pEntity.getViewVector(1.0f);
-                Vec3 view0 = new Vec3(compoundTag1.getDouble(X0_TAG),
-                        compoundTag1.getDouble(Y0_TAG),
-                        compoundTag1.getDouble(Z0_TAG));
-                double d = (Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0))*5);
-                d = 0.1*Math.pow(d, 2) - 0.4;
-                compoundTag1.putDouble(X0_TAG, view.x);
-                compoundTag1.putDouble(Y0_TAG, view.y);
-                compoundTag1.putDouble(Z0_TAG, view.z);
+                double d = 0;
+                if (pLevel.isClientSide) {
+                    CompoundTag compoundTag1 = pEntity.getPersistentData();
+                    Vec3 view = pEntity.getViewVector(1.0f);
+                    Vec3 view0 = new Vec3(compoundTag1.getDouble(X0_TAG),
+                            compoundTag1.getDouble(Y0_TAG),
+                            compoundTag1.getDouble(Z0_TAG));
+                    d = (Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0)) * 5);
+                    d = 0.1 * Math.pow(d, 2) - 0.4;
+                    compoundTag1.putDouble(X0_TAG, view.x);
+                    compoundTag1.putDouble(Y0_TAG, view.y);
+                    compoundTag1.putDouble(Z0_TAG, view.z);
+                }
                 if(compoundTag.getDouble(POWER_TAG) > 0 || d > 0)
                     compoundTag.putDouble(POWER_TAG, compoundTag.getDouble(POWER_TAG)+d);
                 if(compoundTag.getDouble(POWER_TAG) >= 50 && !compoundTag.getBoolean(OPEN_TAG)){
