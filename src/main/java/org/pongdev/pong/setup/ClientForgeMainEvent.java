@@ -10,11 +10,5 @@ import org.pongdev.pong.Pong;
 public class ClientForgeMainEvent {
     @SubscribeEvent
     public static void onEntityViewRender(final ViewportEvent event) {
-        try {
-            Pong.LOGGER.info(event.getCamera().getEntity().xRotO+" 0");
-            Pong.LOGGER.info(event.getCamera().getEntity().getXRot()+" 1");
-        } catch (Exception ignored) {
-
-        }
     }
 }
