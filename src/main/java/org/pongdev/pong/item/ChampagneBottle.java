@@ -71,8 +71,4 @@ public class ChampagneBottle extends Item {
         else
             return 64;
     }
-    @Override
-    public int getUseDuration(ItemStack pStack) {
-        return 15;
-    }
 }
