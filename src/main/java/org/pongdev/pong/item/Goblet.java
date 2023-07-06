@@ -18,7 +18,7 @@ import org.pongdev.pong.setup.Registration;
 
 public class Goblet extends Item {
     public static final String ID = "goblet";
-    private static final String CONTAIN_TAG = "contain";
+    public static final String CONTAIN_TAG = "contain";
 
     public Goblet() {
         super(new Properties().food(

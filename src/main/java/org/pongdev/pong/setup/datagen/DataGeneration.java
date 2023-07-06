@@ -18,6 +18,7 @@ public class DataGeneration {
         ExistingFileHelper helper = event.getExistingFileHelper();
 
         generator.addProvider(event.includeClient(), new PongChineseLanguageProvider(packOutput));
-        generator.addProvider(event.includeClient(), new PongItemModelsProvider(packOutput, event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new PongItemModelsProvider(packOutput, helper));
+        generator.addProvider(event.includeClient(), new PongBlockStateProvider(packOutput, helper));
     }
 }

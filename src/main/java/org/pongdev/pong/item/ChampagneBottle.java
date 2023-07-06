@@ -8,6 +8,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
@@ -19,7 +20,7 @@ import org.pongdev.pong.setup.Registration;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault // no warning then...
-public class ChampagneBottle extends Item {
+public class ChampagneBottle extends BlockItem {
     public static final String ID = "champagne_bottle";
     public static final String POWER_TAG = "power";
     public static final String OPEN_TAG = "open";
@@ -29,7 +30,7 @@ public class ChampagneBottle extends Item {
     public static final String CAPABILITY_TAG = "champagne_capability";
 
     public ChampagneBottle() {
-        super(new Item.Properties());
+        super(Registration.CHAMPAGNE_BOTTLE_BLOCK.get(), new Properties());
 
     }
     @Override

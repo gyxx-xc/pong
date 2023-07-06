@@ -19,15 +19,54 @@ public class PongItemModelsProvider extends ItemModelProvider {
         basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID))
                 // TODO: add other override 1,2,3,4 that shows the different of power
                 .override()
-                .predicate(new ResourceLocation(Pong.MODID, "power"), 16)
+                .predicate(new ResourceLocation(Pong.MODID, "power"), 2)
+                .predicate(new ResourceLocation(Pong.MODID, "open"), 0)
+                .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_0")))
+                .end()
+
+                .override()
+                .predicate(new ResourceLocation(Pong.MODID, "power"), 5)
                 .predicate(new ResourceLocation(Pong.MODID, "open"), 0)
                 .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_1")))
                 .end()
+
+                .override()
+                .predicate(new ResourceLocation(Pong.MODID, "power"), 10)
+                .predicate(new ResourceLocation(Pong.MODID, "open"), 0)
+                .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_2")))
+                .end()
+
+                .override()
+                .predicate(new ResourceLocation(Pong.MODID, "power"), 15)
+                .predicate(new ResourceLocation(Pong.MODID, "open"), 0)
+                .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_3")))
+                .end()
+
+                .override()
+                .predicate(new ResourceLocation(Pong.MODID, "power"), 17)
+                .predicate(new ResourceLocation(Pong.MODID, "open"), 0)
+                .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_4")))
+                .end()
+
+                .override()
+                .predicate(new ResourceLocation(Pong.MODID, "power"), 19)
+                .predicate(new ResourceLocation(Pong.MODID, "open"), 0)
+                .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_5")))
+                .end()
+
                 .override()
                 .predicate(new ResourceLocation(Pong.MODID, "open"), 1)
                 .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_open")))
                 .end();
-        basicItem(new ResourceLocation(Pong.MODID, ChampagneSabre.ID));
-        basicItem(new ResourceLocation(Pong.MODID, Goblet.ID));
+
+        basicItem(new ResourceLocation(Pong.MODID, ChampagneSabre.ID)).override()
+                .predicate(new ResourceLocation(Pong.MODID, "damage"), 250)
+                .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_broken")))
+                .end();
+
+        basicItem(new ResourceLocation(Pong.MODID, Goblet.ID)).override()
+                .predicate(new ResourceLocation(Pong.MODID, Goblet.CONTAIN_TAG), 250)
+                .model(basicItem(new ResourceLocation(Pong.MODID, ChampagneBottle.ID + "_champagne")))
+                .end();
     }
 }
