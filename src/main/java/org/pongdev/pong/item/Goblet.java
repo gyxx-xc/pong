@@ -1,5 +1,6 @@
 package org.pongdev.pong.item;
 
+import com.mojang.blaze3d.shaders.Effect;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -76,8 +77,11 @@ public class Goblet extends Item {
             // we may change this in the future
             // but for now, the containing can only be the champagne
             if (!pLevel.isClientSide) {
-                int level = pLivingEntity.getPersistentData().getInt(Drunk.DRUNK_LEVEL);
-                pLivingEntity.addEffect(new MobEffectInstance(Registration.DRUNK.get(), 500, level));
+                int level = 0;
+                MobEffectInstance drunk = pLivingEntity.getEffect(Registration.DRUNK.get());
+                if (drunk != null)
+                    level = drunk.getAmplifier();
+                pLivingEntity.addEffect(new MobEffectInstance(Registration.DRUNK.get(), 3000, level+1));
                 if (level <= 3) {
                     pLivingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 500, level));
                 } else if (level <= 5) {
@@ -94,7 +98,6 @@ public class Goblet extends Item {
                 } else {
                     pLivingEntity.kill();
                 }
-                pLivingEntity.getPersistentData().putInt(Drunk.DRUNK_LEVEL, level+1);
             }
         } else {
             pStack.getOrCreateTag().putString(CONTAIN_TAG, "champagne");

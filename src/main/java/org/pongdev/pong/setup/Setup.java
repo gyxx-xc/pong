@@ -17,6 +17,6 @@ public class Setup {
 
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
-        event.getEntity().getPersistentData().putInt(Drunk.DRUNK_LEVEL, 0);
+        event.getEntity().removeEffect(Registration.DRUNK.get());
     }
 }
