@@ -1,6 +1,7 @@
 package org.pongdev.pong.item;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -36,10 +37,13 @@ public class Goblet extends Item {
             pPlayer.startUsingItem(thisHand);
             return InteractionResultHolder.consume(thisItem);
         }
-
         InteractionHand otherHand = thisHand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         ItemStack otherItem = pPlayer.getItemInHand(otherHand);
         if(otherItem.getItem() instanceof ChampagneBottle){
+            if(thisItem.getCount() > 1) {
+                pPlayer.sendSystemMessage(Component.translatable("chat.pong.one_goblet"));
+                return InteractionResultHolder.fail(thisItem);
+            }
             int remainChampagne = otherItem.getOrCreateTag().getInt(ChampagneBottle.CAPABILITY_TAG);
             if (remainChampagne >= 100) {
                 thisItem.getOrCreateTag().putBoolean("hand", thisHand == InteractionHand.MAIN_HAND);

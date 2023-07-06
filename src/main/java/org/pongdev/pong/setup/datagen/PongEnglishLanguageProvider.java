@@ -5,16 +5,16 @@ import net.minecraftforge.common.data.LanguageProvider;
 import org.pongdev.pong.Pong;
 import org.pongdev.pong.setup.Registration;
 
-public class PongChineseLanguageProvider extends LanguageProvider {
-    public PongChineseLanguageProvider(PackOutput gen) {
-        super(gen, Pong.MODID, "zh_cn");
+public class PongEnglishLanguageProvider extends LanguageProvider {
+    public PongEnglishLanguageProvider(PackOutput output) {
+        super(output, Pong.MODID, "en_us");
     }
 
-    // TODO: change these into REAL Chinese
+    //TODO: also as Chinese
     @Override
     protected void addTranslations() {
         this.add(Registration.CHAMPAGNE.get(), "xb");
         this.add("itemGroup."+Registration.MODTAB_ID, "p");
-        this.add("chat.pong.one_goblet", "一个瓶子");
+        this.add("chat.pong.one_goblet", "one_goblet to have champagne");
     }
 }

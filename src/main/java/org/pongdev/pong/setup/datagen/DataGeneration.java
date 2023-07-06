@@ -20,5 +20,6 @@ public class DataGeneration {
         generator.addProvider(event.includeClient(), new PongChineseLanguageProvider(packOutput));
         generator.addProvider(event.includeClient(), new PongItemModelsProvider(packOutput, helper));
         generator.addProvider(event.includeClient(), new PongBlockStateProvider(packOutput, helper));
+        generator.addProvider(event.includeClient(), new PongEnglishLanguageProvider(packOutput));
     }
 }

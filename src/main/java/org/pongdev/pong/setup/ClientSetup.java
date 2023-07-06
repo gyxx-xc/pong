@@ -21,20 +21,18 @@ public class ClientSetup {
             ItemProperties.register(
                     Registration.CHAMPAGNE.get(),
                     new ResourceLocation(Pong.MODID, ChampagneBottle.POWER_TAG),
-                    (itemStack, clientWorld, livingEntity, id) ->
-                            itemStack.getOrCreateTag().getFloat(ChampagneBottle.POWER_TAG));
+                    (itemStack, clientWorld, livingEntity, id) -> itemStack.getOrCreateTag().getFloat(ChampagneBottle.POWER_TAG));
             ItemProperties.register(
                     Registration.CHAMPAGNE.get(),
                     new ResourceLocation(Pong.MODID, ChampagneBottle.OPEN_TAG),
-                    (itemStack, clientWorld, livingEntity, id) ->
-                            itemStack.getOrCreateTag().getBoolean(ChampagneBottle.POWER_TAG) ? 1 : 0);
+                    (itemStack, clientWorld, livingEntity, id) -> itemStack.getOrCreateTag().getBoolean(ChampagneBottle.OPEN_TAG) ? 1 : 0);
             ItemProperties.register(
                     Registration.CHAMPAGNE_SABRE.get(),
                     new ResourceLocation(Pong.MODID, "damage"),
                     (itemStack, clientWorld, livingEntity, id) ->
                             itemStack.getUseDuration());
             ItemProperties.register(
-                    Registration.CHAMPAGNE_SABRE.get(),
+                    Registration.GOBLET.get(),
                     new ResourceLocation(Pong.MODID, Goblet.CONTAIN_TAG),
                     (itemStack, clientWorld, livingEntity, id) ->
                             itemStack.getOrCreateTag().getString(Goblet.CONTAIN_TAG).equals("champagne") ? 1 : 0);
