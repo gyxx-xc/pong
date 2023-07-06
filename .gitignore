@@ -6,3 +6,12 @@ build
 src/generated
 *.sh
 mcmodsrepo
+/bin
+gradle
+bin
+settings.gradle
+gradle.properties
+gradlew
+gradlew.bat
+LICENSE.txt
+README.txt
