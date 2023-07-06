@@ -1,0 +1,16 @@
+.gradle
+.idea
+other
+/run
+/build
+/src/generated
+*.sh
+/bin
+gradle
+bin
+settings.gradle
+gradle.properties
+gradlew
+gradlew.bat
+LICENSE.txt
+README.txt
