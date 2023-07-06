@@ -41,10 +41,10 @@ public class Goblet extends Item {
         InteractionHand otherHand = thisHand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         ItemStack otherItem = pPlayer.getItemInHand(otherHand);
         if(otherItem.getItem() instanceof ChampagneBottle){
-            if(thisItem.getCount() > 1) {
+/*            if(thisItem.getCount() > 1) {
                 pPlayer.sendSystemMessage(Component.translatable("chat.pong.one_goblet"));
                 return InteractionResultHolder.fail(thisItem);
-            }
+            }*/
             int remainChampagne = otherItem.getOrCreateTag().getInt(ChampagneBottle.CAPABILITY_TAG);
             if (remainChampagne >= 100) {
                 thisItem.getOrCreateTag().putBoolean("hand", thisHand == InteractionHand.MAIN_HAND);
@@ -100,7 +100,16 @@ public class Goblet extends Item {
                 }
             }
         } else {
+            ItemStack newItemStack = new ItemStack(pStack.getItem(), pStack.getCount()-1, pStack.getTag());
             pStack.getOrCreateTag().putString(CONTAIN_TAG, "champagne");
+
+            if (pStack.getCount() >= 1) {
+                Player player = (Player) pLivingEntity;
+                if (!player.getInventory().add(newItemStack))
+                    player.drop(newItemStack, false);
+            }
+            pStack.setCount(1);
+
             ItemStack otherItem = pLivingEntity.getItemInHand(
                     pStack.getOrCreateTag().getBoolean("hand") ?
                             InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);

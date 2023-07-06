@@ -51,7 +51,6 @@ public class ChampagneSabre extends SwordItem {
                 OpenChampagne.open(champagneStack, pLivingEntity, pLevel);
             } else {
                 champagneStack.shrink(1);
-                Pong.LOGGER.info(champagneStack.getOrCreateTag().getFloat(ChampagneBottle.POWER_TAG)+"");
                 ItemStack newItemStack = new ItemStack(Registration.CHAMPAGNE.get());
                 OpenChampagne.open(newItemStack, pLivingEntity, pLevel);
                 Player player = (Player) pLivingEntity;
