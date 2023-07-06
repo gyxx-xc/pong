@@ -19,6 +19,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.pongdev.pong.Pong;
+import org.pongdev.pong.block.ChampagneBottleBlock;
 import org.pongdev.pong.block.ChampagneRack;
 import org.pongdev.pong.block.RackEntity;
 import org.pongdev.pong.fluid.ChampagneFluidType;
@@ -53,6 +54,7 @@ public class Registration {
     public static final RegistryObject<Item> GOBLET = ITEMS.register(Goblet.ID, Goblet::new);
     public static final RegistryObject<Item> DEBUG_ROD = ITEMS.register(DebugRod.ID, DebugRod::new);
 
+    public static final RegistryObject<Block> CHAMPAGNE_BOTTLE_BLOCK = BLOCKS.register(ChampagneBottle.ID, ChampagneBottleBlock::new);
     public static final RegistryObject<Block> CHAMPAGNE_RACK_BLOCK = BLOCKS.register(ChampagneRack.ID, ChampagneRack::new);
     public static final RegistryObject<Item> CHAMPAGNE_RACK_ITEM = ITEMS.register(ChampagneRack.ID, () -> new BlockItem(CHAMPAGNE_RACK_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<BlockEntityType<RackEntity>> CHAMPAGNE_RACK_ENTITY = BLOCK_ENTITIES.register(
@@ -83,6 +85,5 @@ public class Registration {
                         output.accept(CHAMPAGNE.get());
                         output.accept(CHAMPAGNE_SABRE.get());
                         output.accept(GOBLET.get());
-                        output.accept(CHAMPAGNE_RACK_ITEM.get());
                     }).build() );
 }

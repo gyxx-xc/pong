@@ -19,12 +19,12 @@ public class RackRender implements BlockEntityRenderer<RackEntity> {
     public void render(RackEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
-        PartDefinition bb_main = partdefinition.addOrReplaceChild("bb_main",
+        partdefinition.addOrReplaceChild("bb_main",
                 CubeListBuilder.create()
                         .texOffs(0, 0)
                         .addBox(-3.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F,
                                 new CubeDeformation(0.0F)),
                 PartPose.offset(0.0F, 24.0F, 0.0F));
-        bb_main.bake(16, 16).render(pPoseStack, pBufferSource.getBuffer(RenderType.solid()), pPackedLight, pPackedOverlay);
+        partdefinition.bake(32, 32).render(pPoseStack, pBufferSource.getBuffer(RenderType.solid()), pPackedLight, pPackedOverlay);
     }
 }

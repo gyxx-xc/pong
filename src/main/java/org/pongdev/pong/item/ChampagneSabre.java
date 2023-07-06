@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.Level;
+import org.pongdev.pong.Pong;
 import org.pongdev.pong.setup.Registration;
 
 public class ChampagneSabre extends SwordItem {
@@ -36,7 +37,7 @@ public class ChampagneSabre extends SwordItem {
 
     @Override
     public int getUseDuration(ItemStack pStack) {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -50,6 +51,7 @@ public class ChampagneSabre extends SwordItem {
                 OpenChampagne.open(champagneStack, pLivingEntity, pLevel);
             } else {
                 champagneStack.shrink(1);
+                Pong.LOGGER.info(champagneStack.getOrCreateTag().getFloat(ChampagneBottle.POWER_TAG)+"");
                 ItemStack newItemStack = new ItemStack(Registration.CHAMPAGNE.get());
                 OpenChampagne.open(newItemStack, pLivingEntity, pLevel);
                 Player player = (Player) pLivingEntity;
