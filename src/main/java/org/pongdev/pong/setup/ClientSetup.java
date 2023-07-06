@@ -3,11 +3,12 @@ package org.pongdev.pong.setup;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.pongdev.pong.Pong;
+import org.pongdev.pong.block.RackRender;
 
 @Mod.EventBusSubscriber(modid = Pong.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientSetup {
@@ -25,5 +26,10 @@ public class ClientSetup {
                     (itemStack, clientWorld, livingEntity, id) ->
                             itemStack.getOrCreateTag().getBoolean("open") ? 1 : 0);
         });
+    }
+
+    @SubscribeEvent
+    public static void registerRender(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(Registration.CHAMPAGNE_RACK_ENTITY.get(), RackRender::new);
     }
 }

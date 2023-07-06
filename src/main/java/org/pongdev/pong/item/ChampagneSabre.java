@@ -2,6 +2,7 @@ package org.pongdev.pong.item;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -24,8 +25,8 @@ public class ChampagneSabre extends SwordItem {
                 InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         ItemStack otherStack = pPlayer.getItemInHand(otherHand);
         ItemStack thisStack = pPlayer.getItemInHand(pUsedHand);
-        if (otherStack.getItem() instanceof ChampagneBottle){
-            if(!otherStack.getOrCreateTag().getBoolean(ChampagneBottle.OPEN_TAG)) {
+        if (otherStack.getItem() instanceof ChampagneBottle) {
+            if (!otherStack.getOrCreateTag().getBoolean(ChampagneBottle.OPEN_TAG)) {
                 pPlayer.startUsingItem(pUsedHand);
                 return InteractionResultHolder.success(thisStack);
             }
@@ -40,18 +41,23 @@ public class ChampagneSabre extends SwordItem {
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        if(pLivingEntity instanceof Player){
+        if (pLivingEntity instanceof Player) {
             ItemStack mainItem = pLivingEntity.getItemInHand(InteractionHand.MAIN_HAND);
             ItemStack offItem = pLivingEntity.getItemInHand(InteractionHand.OFF_HAND);
-            if(mainItem.getItem() instanceof ChampagneBottle){
-                mainItem.shrink(1);
+            ItemStack champagneStack = mainItem.getItem() instanceof ChampagneBottle ? mainItem : offItem;
+
+            if (champagneStack.getCount() == 1){
+                OpenChampagne.open(champagneStack, pLivingEntity, pLevel);
             } else {
-                offItem.shrink(1);
+                champagneStack.shrink(1);
+                ItemStack newItemStack = new ItemStack(Registration.CHAMPAGNE.get());
+                OpenChampagne.open(newItemStack, pLivingEntity, pLevel);
+                Player player = (Player) pLivingEntity;
+                if (!player.getInventory().add(newItemStack))
+                    player.drop(newItemStack, false);
             }
-            ItemStack newItemStack = new ItemStack(Registration.CHAMPAGNE.get());
-            OpenChampagne.open(newItemStack, pLivingEntity, pLevel);
-            ((Player) pLivingEntity).addItem(newItemStack);
         }
-        return super.finishUsingItem(pStack, pLevel, pLivingEntity);
+        pStack.setDamageValue(pStack.getDamageValue() + 1);
+        return pStack;
     }
 }

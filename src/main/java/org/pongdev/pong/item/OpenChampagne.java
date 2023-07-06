@@ -14,6 +14,7 @@ import org.pongdev.pong.particle.ModParticles;
 public class OpenChampagne {
     public static void open(ItemStack pStack, Entity entity, Level pLevel) {
         Pong.LOGGER.info("open");
+        pStack.getOrCreateTag().putInt(ChampagneBottle.CAPABILITY_TAG, 1000);
         pStack.getOrCreateTag().putBoolean(ChampagneBottle.OPEN_TAG, true);
         double power = pStack.getOrCreateTag().getDouble(ChampagneBottle.POWER_TAG);
         playSound(entity, power, pLevel);

@@ -3,6 +3,7 @@ package org.pongdev.pong.mobeffect;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec2;
@@ -15,9 +16,6 @@ import java.util.Random;
 import java.util.UUID;
 
 public class Drunk extends MobEffect {
-    protected final Random random = new Random();
-    private final Map<UUID, Vec2> velocity = new Hashtable<UUID, Vec2>();
-    // UUID -> v:(x, y)
     public static final String DRUNK_LEVEL = "drunk_level";
     public Drunk() {
         super(MobEffectCategory.HARMFUL, 0);
@@ -25,10 +23,8 @@ public class Drunk extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-
+        pLivingEntity.xRotO = 180;
     }
-
-
 
     @Override
     public boolean isDurationEffectTick(int pDuration, int pAmplifier) {

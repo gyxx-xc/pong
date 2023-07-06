@@ -4,7 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cda26c0-2505-4475-b7df-778b759c0b15" name="Changes" comment="" />
+    <list default="true" id="7cda26c0-2505-4475-b7df-778b759c0b15" name="Changes" comment="add .gitignore">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/block/ChampagneRack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/block/ChampagneTower.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/block/RackEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/block/RackRender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/fluid/BaseFluidType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/fluid/ChampagneFluidType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/item/DebugRod.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/setup/ClientForgeMainEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/pong/textures/mob_effect/drunk.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/item/ChampagneBottle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/item/ChampagneBottle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/item/ChampagneSabre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/item/ChampagneSabre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/item/Goblet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/item/Goblet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/item/OpenChampagne.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/item/OpenChampagne.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/mobeffect/Drunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/mobeffect/Drunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/setup/ClientSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/setup/ClientSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/setup/Registration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/setup/Registration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/setup/Setup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/pongdev/pong/setup/Setup.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,6 +133,15 @@
       <option name="presentableId" value="Default" />
       <updated>1687944710295</updated>
     </task>
+    <task id="LOCAL-00001" summary="add .gitignore">
+      <option name="closed" value="true" />
+      <created>1688626797103</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1688626797103</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -168,5 +196,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="add .gitignore" />
   </component>
 </project>
