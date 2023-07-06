@@ -55,6 +55,16 @@ public class ChampagneBottle extends BlockItem {
                 if(compoundTag.getDouble(POWER_TAG) > 0 || d > 0)
                     compoundTag.putDouble(POWER_TAG, compoundTag.getDouble(POWER_TAG)+d);
                 if(compoundTag.getDouble(POWER_TAG) >= 50 && !compoundTag.getBoolean(OPEN_TAG)){
+                    if(pStack.getCount() > 1) {
+                        for (int i = 0; i < pStack.getCount() - 1; i ++){
+                            ItemStack itemStack = new ItemStack(pStack.getItem(), 1, pStack.getTag());
+                            OpenChampagne.open(itemStack, pEntity, pLevel);
+                            Player player = (Player) pEntity;
+                            if (!player.getInventory().add(itemStack))
+                                player.drop(itemStack, false);
+                        }
+                    }
+                    pStack.setCount(1);
                     OpenChampagne.open(pStack, pEntity, pLevel);
                 }
             }
