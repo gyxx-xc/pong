@@ -41,10 +41,6 @@ public class Goblet extends Item {
         InteractionHand otherHand = thisHand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         ItemStack otherItem = pPlayer.getItemInHand(otherHand);
         if(otherItem.getItem() instanceof ChampagneBottle){
-/*            if(thisItem.getCount() > 1) {
-                pPlayer.sendSystemMessage(Component.translatable("chat.pong.one_goblet"));
-                return InteractionResultHolder.fail(thisItem);
-            }*/
             int remainChampagne = otherItem.getOrCreateTag().getInt(ChampagneBottle.CAPABILITY_TAG);
             if (remainChampagne >= 100) {
                 thisItem.getOrCreateTag().putBoolean("hand", thisHand == InteractionHand.MAIN_HAND);
