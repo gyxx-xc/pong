@@ -87,6 +87,26 @@ public class ChampagneBottle extends BlockItem {
         else
             return 64;
     }
+    @Override
+    public InteractionResult useOn(UseOnContext pContext) {
+        if (pContext.getLevel().isClientSide()) {
+            BlockPos positionClicked = pContext.getClickedPos();
+            Player player = pContext.getPlayer();
+
+            spawnFoundParticles(pContext, positionClicked);
+        }
+        return super.useOn(pContext);
+    }
+
+        private void spawnFoundParticles(UseOnContext pContext, BlockPos positionClicked) {
+            for(int i = 0; i < 360; i++) {
+                if(i % 20 == 0) {
+                    pContext.getLevel().addParticle(ModParticles.SPLASH_PARTICLES.get(),
+                            positionClicked.getX() + 0.5d, positionClicked.getY() + 1, positionClicked.getZ() + 0.5d,
+                            Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
+                }
+            }
+        }
 
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
