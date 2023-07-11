@@ -1,15 +1,9 @@
 package org.pongdev.pong.item;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import org.pongdev.pong.Pong;
-import org.pongdev.pong.particle.ModParticles;
 
 public class OpenChampagne {
     public static void open(ItemStack pStack, Entity entity, Level pLevel) {
@@ -31,7 +25,7 @@ public class OpenChampagne {
     // TODO: spawn particle act like some water is splash
     // TODO: the particle should be white cause the bubble
     // TODO: the power will affect the splash range of the particle
-
+    // wtf?
 //    @Override
 //    public InteractionResult useOn(UseOnContext pContext) {
 //        if (pContext.getLevel().isClientSide()) {

@@ -11,8 +11,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
+import org.pongdev.pong.Pong;
 import org.pongdev.pong.block.RackEntity;
-import org.pongdev.pong.particle.ModParticles;
 import org.pongdev.pong.setup.Registration;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -79,12 +79,11 @@ public class ChampagneBottle extends BlockItem {
     }
 
     private void spawnFoundParticles(UseOnContext pContext, BlockPos positionClicked) {
-        for(int i = 0; i < 360; i++) {
-            if(i % 20 == 0) {
-                pContext.getLevel().addParticle(ModParticles.SPLASH_PARTICLES.get(),
-                        positionClicked.getX() + 0.5d, positionClicked.getY() + 1, positionClicked.getZ() + 0.5d,
-                        Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
-            }
+        Pong.LOGGER.info("asd");
+        for(int i = 0; i < 360; i += 20) {
+            pContext.getLevel().addParticle(Registration.SPLASH_PARTICLES.get(),
+                    positionClicked.getX() + 0.5d, positionClicked.getY() + 1, positionClicked.getZ() + 0.5d,
+                    Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
         }
     }
 
@@ -92,8 +91,6 @@ public class ChampagneBottle extends BlockItem {
     public InteractionResult useOn(UseOnContext pContext) {
         if (pContext.getLevel().isClientSide()) {
             BlockPos positionClicked = pContext.getClickedPos();
-            Player player = pContext.getPlayer();
-
             spawnFoundParticles(pContext, positionClicked);
         }
         if (!pContext.getItemInHand().getOrCreateTag().getBoolean(OPEN_TAG)) {

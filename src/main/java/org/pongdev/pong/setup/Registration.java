@@ -1,5 +1,7 @@
 package org.pongdev.pong.setup;
 
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
@@ -28,6 +30,7 @@ import org.pongdev.pong.item.ChampagneSabre;
 import org.pongdev.pong.item.DebugRod;
 import org.pongdev.pong.item.Goblet;
 import org.pongdev.pong.mobeffect.Drunk;
+import org.pongdev.pong.particle.SplashParticles;
 
 public class Registration {
     public static void register(IEventBus modBus){
@@ -38,6 +41,7 @@ public class Registration {
         MOB_EFFECTS.register(modBus);
         FLUIDS.register(modBus);
         FLUID_TYPES.register(modBus);
+        PARTICLE_TYPES.register(modBus);
     }
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Pong.MODID);
@@ -47,6 +51,7 @@ public class Registration {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Pong.MODID);
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Pong.MODID);
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, Pong.MODID);
+    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Pong.MODID);
 
 
     public static final RegistryObject<Item> CHAMPAGNE = ITEMS.register(ChampagneBottle.ID, ChampagneBottle::new);
@@ -74,6 +79,8 @@ public class Registration {
             ChampagneFluidType.CHAMPAGNE_FLUID_TYPE, SOURCE_CHAMPAGNE, FLOWING_CHAMPAGNE)
             .slopeFindDistance(2).levelDecreasePerBlock(2).block(CHAMPAGNE_FLUID_BLOCK);
 
+    public static final RegistryObject<SimpleParticleType> SPLASH_PARTICLES =
+            PARTICLE_TYPES.register(SplashParticles.ID, () -> new SimpleParticleType(true));
 
     public static final String MODTAB_ID ="pong_tab";
     public static final RegistryObject<CreativeModeTab> MODTAB = CREATIVE_MODE_TABS.register(MODTAB_ID,
