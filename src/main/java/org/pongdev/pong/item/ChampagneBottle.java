@@ -1,7 +1,9 @@
 package org.pongdev.pong.item;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -12,10 +14,15 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.pongdev.pong.Pong;
+import org.pongdev.pong.block.ChampagneRack;
+import org.pongdev.pong.block.RackEntity;
 import org.pongdev.pong.setup.Registration;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -32,7 +39,6 @@ public class ChampagneBottle extends BlockItem {
 
     public ChampagneBottle() {
         super(Registration.CHAMPAGNE_BOTTLE_BLOCK.get(), new Properties());
-
     }
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
@@ -80,5 +86,20 @@ public class ChampagneBottle extends BlockItem {
             return 1;
         else
             return 64;
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext pContext) {
+        if (!pContext.getItemInHand().getOrCreateTag().getBoolean(OPEN_TAG)) {
+            Level level = pContext.getLevel();
+            BlockPos pos = pContext.getClickedPos();
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof RackEntity rack) {
+                rack.getPersistentData().putInt("number", 1);
+                pContext.getItemInHand().shrink(1);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return super.useOn(pContext);
     }
 }
