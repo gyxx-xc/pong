@@ -79,7 +79,6 @@ public class ChampagneBottle extends BlockItem {
     }
 
     private void spawnFoundParticles(UseOnContext pContext, BlockPos positionClicked) {
-        Pong.LOGGER.info("asd");
         for(int i = 0; i < 360; i += 20) {
             pContext.getLevel().addParticle(Registration.SPLASH_PARTICLES.get(),
                     positionClicked.getX() + 0.5d, positionClicked.getY() + 1, positionClicked.getZ() + 0.5d,
