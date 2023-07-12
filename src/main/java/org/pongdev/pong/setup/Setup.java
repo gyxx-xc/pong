@@ -21,10 +21,4 @@ public class Setup {
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
         event.getEntity().removeEffect(Registration.DRUNK.get());
     }
-
-    @SubscribeEvent
-    public static void registerParticleProvider(final RegisterParticleProvidersEvent event) {
-        Minecraft.getInstance().particleEngine.register(Registration.SPLASH_PARTICLES.get(),
-                SplashParticles.Provider::new);
-    }
 }

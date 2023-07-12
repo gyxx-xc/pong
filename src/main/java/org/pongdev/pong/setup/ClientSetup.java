@@ -1,9 +1,11 @@
 package org.pongdev.pong.setup;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -12,6 +14,7 @@ import org.pongdev.pong.block.ChampagneBottleBlock;
 import org.pongdev.pong.block.RackRender;
 import org.pongdev.pong.item.ChampagneBottle;
 import org.pongdev.pong.item.Goblet;
+import org.pongdev.pong.particle.SplashParticles;
 
 @Mod.EventBusSubscriber(modid = Pong.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientSetup {
@@ -42,5 +45,11 @@ public class ClientSetup {
     @SubscribeEvent
     public static void registerRender(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(Registration.CHAMPAGNE_RACK_ENTITY.get(), RackRender::new);
+    }
+
+    @SubscribeEvent
+    public static void registerParticleProvider(final RegisterParticleProvidersEvent event) {
+        Minecraft.getInstance().particleEngine.register(Registration.SPLASH_PARTICLES.get(),
+                SplashParticles.Provider::new);
     }
 }
