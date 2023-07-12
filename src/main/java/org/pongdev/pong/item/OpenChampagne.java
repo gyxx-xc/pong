@@ -3,7 +3,9 @@ package org.pongdev.pong.item;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.pongdev.pong.Pong;
+import org.pongdev.pong.setup.Registration;
 
 public class OpenChampagne {
     public static void open(ItemStack pStack, Entity entity, Level pLevel) {
@@ -12,7 +14,7 @@ public class OpenChampagne {
         pStack.getOrCreateTag().putBoolean(ChampagneBottle.OPEN_TAG, true);
         double power = pStack.getOrCreateTag().getDouble(ChampagneBottle.POWER_TAG);
         playSound(entity, power, pLevel);
-        emmitParticle(entity, power);
+        emmitParticle(entity, power, pLevel);
         shootPlug(entity, power);
     }
 
@@ -22,31 +24,15 @@ public class OpenChampagne {
 
     }
 
-    // TODO: spawn particle act like some water is splash
-    // TODO: the particle should be white cause the bubble
     // TODO: the power will affect the splash range of the particle
-    // wtf?
-//    @Override
-//    public InteractionResult useOn(UseOnContext pContext) {
-//        if (pContext.getLevel().isClientSide()) {
-//            BlockPos positionClicked = pContext.getClickedPos();
-//            Player player = pContext.getPlayer();
-//
-//            spawnFoundParticles(pContext, positionClicked);
-//        }
-//        return super.useOn(pContext);
-//    }
-//
-//        private void spawnFoundParticles(UseOnContext pContext, BlockPos positionClicked) {
-//            for(int i = 0; i < 360; i++) {
-//                if(i % 20 == 0) {
-//                    pContext.getLevel().addParticle(ModParticles.SPLASH_PARTICLES.get(),
-//                            positionClicked.getX() + 0.5d, positionClicked.getY() + 1, positionClicked.getZ() + 0.5d,
-//                            Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
-//                }
-//            }
-//        }
-    private static void emmitParticle(Entity entity, double power) {
+    private static void emmitParticle(Entity entity, double power, Level level) {
+        if (level.isClientSide()){
+            Pong.LOGGER.info("asd");
+            Vec3 entityPos = entity.getPosition(0);
+            level.addParticle(Registration.SPLASH_PARTICLES.get(),
+                    entityPos.x + 1d, entityPos.y, entityPos.z + 1d,
+                    0.15d, 0.15d, 0.15d);
+        }
     }
 
     // TODO: play sound
