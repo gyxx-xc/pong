@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 public class ChampagneRack extends HorizontalDirectionalBlock implements EntityBlock {
     public static final String ID = "champagne_rack";
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final String CONTAIN = "contain_number";
 
     public ChampagneRack() {
         super(BlockBehaviour.Properties.of()
