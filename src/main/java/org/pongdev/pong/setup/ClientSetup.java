@@ -12,6 +12,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.pongdev.pong.Pong;
 import org.pongdev.pong.block.ChampagneBottleBlock;
 import org.pongdev.pong.block.RackRender;
+import org.pongdev.pong.entity.PlugModel;
+import org.pongdev.pong.entity.PlugRender;
 import org.pongdev.pong.item.ChampagneBottle;
 import org.pongdev.pong.item.Goblet;
 import org.pongdev.pong.particle.SplashParticles;
@@ -43,8 +45,14 @@ public class ClientSetup {
     }
 
     @SubscribeEvent
+    public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(PlugModel.LAYER_LOCATION, PlugModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
     public static void registerRender(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(Registration.CHAMPAGNE_RACK_ENTITY.get(), RackRender::new);
+        event.registerEntityRenderer(Registration.PLUG_ENTITY.get(), PlugRender::new);
     }
 
     @SubscribeEvent
