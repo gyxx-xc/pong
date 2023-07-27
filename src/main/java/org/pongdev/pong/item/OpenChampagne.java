@@ -1,10 +1,12 @@
 package org.pongdev.pong.item;
 
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.pongdev.pong.Pong;
+import org.pongdev.pong.entity.PlugEntity;
 import org.pongdev.pong.setup.Registration;
 
 public class OpenChampagne {
@@ -15,13 +17,19 @@ public class OpenChampagne {
         double power = pStack.getOrCreateTag().getDouble(ChampagneBottle.POWER_TAG);
         playSound(entity, power, pLevel);
         emmitParticle(entity, power, pLevel);
-        shootPlug(entity, power);
+        shootPlug(entity, power, pLevel);
     }
 
     // TODO: refer to how the bow do, create a plug entity
     // TODO: the power will decided the speed and the damage of a plug
-    private static void shootPlug(Entity entity, double power) {
-
+    private static void shootPlug(Entity entity, double power, Level pLevel) {
+        Pong.LOGGER.info(power+"");
+        PlugEntity plug = new PlugEntity(Registration.PLUG_ENTITY.get(), pLevel);
+        plug.moveTo(entity.getEyePosition());
+        plug.setBaseDamage(1);
+        plug.shootFromRotation(entity, entity.getXRot(), entity.getYRot()+0.1F,
+                0.0F, (float) ((power/10)+0.1), 3.0f);
+        pLevel.addFreshEntity(plug);
     }
 
     // TODO: the power will affect the splash range of the particle
