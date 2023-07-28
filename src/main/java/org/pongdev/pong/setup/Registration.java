@@ -5,6 +5,9 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -24,11 +27,9 @@ import org.pongdev.pong.Pong;
 import org.pongdev.pong.block.ChampagneBottleBlock;
 import org.pongdev.pong.block.ChampagneRack;
 import org.pongdev.pong.block.RackEntity;
+import org.pongdev.pong.entity.PlugEntity;
 import org.pongdev.pong.fluid.ChampagneFluidType;
-import org.pongdev.pong.item.ChampagneBottle;
-import org.pongdev.pong.item.ChampagneSabre;
-import org.pongdev.pong.item.DebugRod;
-import org.pongdev.pong.item.Goblet;
+import org.pongdev.pong.item.*;
 import org.pongdev.pong.mobeffect.Drunk;
 import org.pongdev.pong.particle.SplashParticles;
 
@@ -42,6 +43,7 @@ public class Registration {
         FLUIDS.register(modBus);
         FLUID_TYPES.register(modBus);
         PARTICLE_TYPES.register(modBus);
+        ENTITY_TYPES.register(modBus);
     }
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Pong.MODID);
@@ -51,13 +53,20 @@ public class Registration {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Pong.MODID);
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Pong.MODID);
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, Pong.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Pong.MODID);
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Pong.MODID);
 
 
     public static final RegistryObject<Item> CHAMPAGNE = ITEMS.register(ChampagneBottle.ID, ChampagneBottle::new);
     public static final RegistryObject<Item> CHAMPAGNE_SABRE = ITEMS.register(ChampagneSabre.ID, ChampagneSabre::new);
     public static final RegistryObject<Item> GOBLET = ITEMS.register(Goblet.ID, Goblet::new);
+    public static final RegistryObject<Item> PLUG = ITEMS.register(PlugItem.ID, PlugItem::new);
     public static final RegistryObject<Item> DEBUG_ROD = ITEMS.register(DebugRod.ID, DebugRod::new);
+
+    public static final RegistryObject<EntityType<PlugEntity>> PLUG_ENTITY = ENTITY_TYPES.register(PlugItem.ID,
+            () -> EntityType.Builder.of(PlugEntity::new, MobCategory.MISC)
+                    .sized(0.125f, 0.0625f)
+                    .build(PlugItem.ID));
 
     public static final RegistryObject<Block> CHAMPAGNE_BOTTLE_BLOCK = BLOCKS.register(ChampagneBottle.ID, ChampagneBottleBlock::new);
     public static final RegistryObject<Block> CHAMPAGNE_RACK_BLOCK = BLOCKS.register(ChampagneRack.ID, ChampagneRack::new);
@@ -92,5 +101,6 @@ public class Registration {
                         output.accept(CHAMPAGNE.get());
                         output.accept(CHAMPAGNE_SABRE.get());
                         output.accept(GOBLET.get());
+                        output.accept(CHAMPAGNE_RACK_ITEM.get());
                     }).build() );
 }

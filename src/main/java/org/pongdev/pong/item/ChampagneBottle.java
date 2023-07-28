@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.pongdev.pong.block.ChampagneRack;
 import org.pongdev.pong.block.RackEntity;
 import org.pongdev.pong.setup.Registration;
 
@@ -85,9 +86,14 @@ public class ChampagneBottle extends BlockItem {
             BlockPos pos = pContext.getClickedPos();
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof RackEntity rack) {
-                rack.getPersistentData().putInt("number", 1);
-                pContext.getItemInHand().shrink(1);
-                return InteractionResult.SUCCESS;
+                int temp = rack.getPersistentData().getInt(ChampagneRack.CONTAIN);
+                if (temp < 4) {
+                    rack.getPersistentData().putInt(ChampagneRack.CONTAIN, temp + 1);
+                    pContext.getItemInHand().shrink(1);
+                    return InteractionResult.SUCCESS;
+                } else {
+                    return InteractionResult.FAIL;
+                }
             }
         }
         return super.useOn(pContext);
