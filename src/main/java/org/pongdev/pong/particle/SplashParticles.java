@@ -17,19 +17,11 @@ public class SplashParticles extends TextureSheetParticle {
     public SplashParticles(ClientLevel pLevel, double pX, double pY, double pZ,
                               SpriteSet spriteSet, double pXSpeed, double pYSpeed, double pZSpeed) {
         super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
-
-        // TODO: no magic number!
-        this.friction = 0.8F;
-        this.xd = pXSpeed;
-        this.yd = pYSpeed;
-        this.zd = pZSpeed;
-        this.quadSize *= 0.85F;
-        this.lifetime = 20;
+        this.friction = 0.999999999999999999999F;
+        this.lifetime = 50;
+        this.gravity = 0.4F;
         this.setSpriteFromAge(spriteSet);
-
-        this.rCol = 1f;
-        this.gCol = 1f;
-        this.bCol = 1f;
+        this.speedUpWhenYMotionIsBlocked = true;
     }
 
     @Override
@@ -39,7 +31,7 @@ public class SplashParticles extends TextureSheetParticle {
     }
 
     private void fadeout(){
-        this.alpha = (-(1/(float)lifetime) * age + 1);
+        this.alpha = age > 30 ? (1 - (float)(age-30)/(lifetime-30)) : 1;
     }
 
     @Override
