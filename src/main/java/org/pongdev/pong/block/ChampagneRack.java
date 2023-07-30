@@ -32,7 +32,10 @@ public class ChampagneRack extends HorizontalDirectionalBlock implements EntityB
     public static final String ID = "champagne_rack";
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final String CONTAIN = "contain_number";
-    public static final VoxelShape SHAPE_EMPTY = Block.box(0, 0, 10, 16, 16, 13);
+    public static final VoxelShape SHAPE_EMPTY_ZP = Block.box(0, 0, 10, 16, 16, 13);
+    public static final VoxelShape SHAPE_EMPTY_ZN = Block.box(0, 0, 3, 16, 16, 6);
+    public static final VoxelShape SHAPE_EMPTY_XP = Block.box(10, 0, 0, 13, 16, 16);
+    public static final VoxelShape SHAPE_EMPTY_XN = Block.box(3, 0, 0, 6, 16, 16);
     public static final VoxelShape SHAPE_BOTTLE = Block.box(0, 0, 0, 16, 16, 16);
 
     public ChampagneRack() {
@@ -66,7 +69,23 @@ public class ChampagneRack extends HorizontalDirectionalBlock implements EntityB
         if (block.getPersistentData().getInt(CONTAIN) != 0)
             return SHAPE_BOTTLE;
         else
-            return SHAPE_EMPTY;
+            switch (pState.getValue(FACING)) {
+                case NORTH -> {
+                    return SHAPE_EMPTY_ZN;
+                }
+                case SOUTH -> {
+                    return SHAPE_EMPTY_ZP;
+                }
+                case WEST -> {
+                    return SHAPE_EMPTY_XN;
+                }
+                case EAST -> {
+                    return SHAPE_EMPTY_XP;
+                }
+                default -> {
+                    return super.getShape(pState, pLevel, pPos, pContext);
+                }
+            }
     }
 
     @Nullable
