@@ -102,5 +102,6 @@ public class Registration {
                         output.accept(CHAMPAGNE_SABRE.get());
                         output.accept(GOBLET.get());
                         output.accept(CHAMPAGNE_RACK_ITEM.get());
+                        output.accept(PLUG.get());
                     }).build() );
 }

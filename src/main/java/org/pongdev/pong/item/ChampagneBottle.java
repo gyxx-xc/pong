@@ -45,7 +45,7 @@ public class ChampagneBottle extends BlockItem {
                         compoundTag1.getDouble(Y0_TAG),
                         compoundTag1.getDouble(Z0_TAG));
                 d = (Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0)) * 5);
-                d = 0.1 * Math.pow(d, 2) - 0.4;
+                d = 0.1 * Math.pow(d, 2) - 0.1;
                 compoundTag1.putDouble(X0_TAG, view.x);
                 compoundTag1.putDouble(Y0_TAG, view.y);
                 compoundTag1.putDouble(Z0_TAG, view.z);
@@ -73,10 +73,7 @@ public class ChampagneBottle extends BlockItem {
 
     @Override
     public int getMaxStackSize(ItemStack stack) {
-        if(stack.getOrCreateTag().getBoolean(OPEN_TAG))
-            return 1;
-        else
-            return 64;
+        return 1;
     }
 
     @Override

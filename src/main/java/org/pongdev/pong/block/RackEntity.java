@@ -6,8 +6,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
 import org.pongdev.pong.setup.Registration;
+
+import static org.pongdev.pong.item.OpenChampagne.*;
 
 public class RackEntity extends BlockEntity {
     public static final String CONTAIN_CHAMPAGNE = "contain_champagne";
@@ -55,6 +58,14 @@ public class RackEntity extends BlockEntity {
     public void explode(){
         assert this.level != null;
         // open champagne (?)
+        Vec3 lookWay = Vec3.atLowerCornerOf(getBlockState().getValue(ChampagneRack.FACING).getNormal());
+        int number = getPersistentData().getInt(ChampagneRack.CONTAIN);
+        for (int i = 0; i < number; i ++) {
+            playSound(worldPosition.getCenter(), 30, this.level);
+            emmitParticle(worldPosition.getCenter(), lookWay, 30, this.level);
+            shootPlug(worldPosition.getCenter(), lookWay, 30, this.level);
+        }
+
         this.level.setBlockAndUpdate(worldPosition,
                 Registration.SOURCE_CHAMPAGNE.get().defaultFluidState().createLegacyBlock());
         this.level.updateNeighborsAt(worldPosition.below(),
