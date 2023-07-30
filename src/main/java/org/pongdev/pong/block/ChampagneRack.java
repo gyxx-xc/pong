@@ -12,12 +12,14 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.phys.BlockHitResult;
@@ -30,8 +32,9 @@ import org.pongdev.pong.setup.Registration;
 
 public class ChampagneRack extends HorizontalDirectionalBlock implements EntityBlock {
     public static final String ID = "champagne_rack";
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final String CONTAIN = "contain_number";
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final VoxelShape SHAPE_EMPTY_ZP = Block.box(0, 0, 10, 16, 16, 13);
     public static final VoxelShape SHAPE_EMPTY_ZN = Block.box(0, 0, 3, 16, 16, 6);
     public static final VoxelShape SHAPE_EMPTY_XP = Block.box(10, 0, 0, 13, 16, 16);
@@ -48,13 +51,13 @@ public class ChampagneRack extends HorizontalDirectionalBlock implements EntityB
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(FACING, POWERED);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
     }
 
     @Override
@@ -116,5 +119,27 @@ public class ChampagneRack extends HorizontalDirectionalBlock implements EntityB
             if (rack.getPersistentData().getInt(CONTAIN) > 0)
                 rack.explode();
         }
+    }
+
+    @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
+        if (pLevel.hasNeighborSignal(pPos)) {
+            BlockEntity block = pLevel.getBlockEntity(pPos);
+            if (block instanceof RackEntity rack) {
+                if (rack.getPersistentData().getInt(CONTAIN) > 0)
+                    pLevel.blockEvent(pPos, pState.getBlock(), 0, 0);
+            }
+        }
+        super.neighborChanged(pState, pLevel, pPos, pNeighborBlock, pNeighborPos, pMovedByPiston);
+    }
+
+    @Override
+    public boolean triggerEvent(BlockState pState, Level pLevel, BlockPos pPos, int pId, int pParam) {
+        BlockEntity block = pLevel.getBlockEntity(pPos);
+        if (block instanceof RackEntity rack) {
+            if (rack.getPersistentData().getInt(CONTAIN) > 0)
+                rack.explode();
+        }
+        return true;
     }
 }

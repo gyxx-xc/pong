@@ -1,5 +1,7 @@
 package org.pongdev.pong.item;
 
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -25,7 +27,8 @@ public class OpenChampagne {
         Vec3 lookWay = Vec3.directionFromRotation(
                 entity.getXRot(),
                 entity.getYRot());
-        playSound(position, power, pLevel);
+        //playSound(position, power, pLevel);
+        entity.playSound(SoundEvents.GENERIC_EXPLODE, (float) power/40, 1.0F);
         emmitParticle(position, lookWay, power, pLevel);
         shootPlug(position, lookWay, power, pLevel);
     }
@@ -51,11 +54,5 @@ public class OpenChampagne {
                         lookWay.x, lookWay.y, lookWay.z);
             }
         }
-    }
-
-    // TODO: play sound
-    // TODO: the power will affect the type and the loudness of the sound
-    public static void playSound(Vec3 position, double power, Level level) {
-
     }
 }

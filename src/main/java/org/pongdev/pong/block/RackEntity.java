@@ -2,12 +2,15 @@ package org.pongdev.pong.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
+import org.pongdev.pong.Pong;
 import org.pongdev.pong.setup.Registration;
 
 import static org.pongdev.pong.item.OpenChampagne.*;
@@ -57,11 +60,13 @@ public class RackEntity extends BlockEntity {
 
     public void explode(){
         assert this.level != null;
-        // open champagne (?)
+        Pong.LOGGER.info(level+"");
+        this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(ChampagneRack.POWERED, true), 3);
         Vec3 lookWay = Vec3.atLowerCornerOf(getBlockState().getValue(ChampagneRack.FACING).getNormal());
         int number = getPersistentData().getInt(ChampagneRack.CONTAIN);
         for (int i = 0; i < number; i ++) {
-            playSound(worldPosition.getCenter(), 30, this.level);
+            level.playLocalSound(worldPosition.getCenter().x, worldPosition.getCenter().y, worldPosition.getCenter().z,
+                    SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 1, 1.0F, false);
             emmitParticle(worldPosition.getCenter(), lookWay, 30, this.level);
             shootPlug(worldPosition.getCenter(), lookWay, 30, this.level);
         }
