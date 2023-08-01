@@ -5,7 +5,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.pongdev.pong.particle.ModParticles;
 import org.pongdev.pong.setup.Registration;
 import org.pongdev.pong.setup.datagen.DataGeneration;
 import org.slf4j.Logger;
@@ -19,7 +18,5 @@ public class Pong {
         Registration.register(modEventBus);
         modEventBus.addListener(DataGeneration::onGatherData);
         MinecraftForge.EVENT_BUS.register(this);
-        // For register particles YY
-        ModParticles.register(modEventBus);
     }
 }

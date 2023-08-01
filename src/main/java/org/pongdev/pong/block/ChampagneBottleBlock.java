@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 public class ChampagneBottleBlock extends FallingBlock {
     public static final VoxelShape SHAPE =
-            Shapes.join(Block.box(4, 0, 4, 12, 13, 12),
+            Shapes.join(Block.box(5.25, 0, 5.25, 10.75, 8, 10.75),
                     Block.box(7, 9, 7, 9, 16, 9), BooleanOp.OR);
     public ChampagneBottleBlock() {
         super(BlockBehaviour.Properties.of()

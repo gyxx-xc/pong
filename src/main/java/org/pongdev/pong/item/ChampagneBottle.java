@@ -11,8 +11,9 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.pongdev.pong.block.ChampagneRack;
 import org.pongdev.pong.block.RackEntity;
-import org.pongdev.pong.particle.ModParticles;
 import org.pongdev.pong.setup.Registration;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -44,7 +45,7 @@ public class ChampagneBottle extends BlockItem {
                         compoundTag1.getDouble(Y0_TAG),
                         compoundTag1.getDouble(Z0_TAG));
                 d = (Math.acos(view.dot(view0) > 1 ? 1 : view.dot(view0)) * 5);
-                d = 0.1 * Math.pow(d, 2) - 0.4;
+                d = 0.1 * Math.pow(d, 2) - 0.1;
                 compoundTag1.putDouble(X0_TAG, view.x);
                 compoundTag1.putDouble(Y0_TAG, view.y);
                 compoundTag1.putDouble(Z0_TAG, view.z);
@@ -72,38 +73,24 @@ public class ChampagneBottle extends BlockItem {
 
     @Override
     public int getMaxStackSize(ItemStack stack) {
-        if(stack.getOrCreateTag().getBoolean(OPEN_TAG))
-            return 1;
-        else
-            return 64;
-    }
-
-    private void spawnFoundParticles(UseOnContext pContext, BlockPos positionClicked) {
-        for(int i = 0; i < 360; i++) {
-            if(i % 20 == 0) {
-                pContext.getLevel().addParticle(ModParticles.SPLASH_PARTICLES.get(),
-                        positionClicked.getX() + 0.5d, positionClicked.getY() + 1, positionClicked.getZ() + 0.5d,
-                        Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
-            }
-        }
+        return 1;
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext pContext) {
-        if (pContext.getLevel().isClientSide()) {
-            BlockPos positionClicked = pContext.getClickedPos();
-            Player player = pContext.getPlayer();
-
-            spawnFoundParticles(pContext, positionClicked);
-        }
+    public @NotNull InteractionResult useOn(UseOnContext pContext) {
         if (!pContext.getItemInHand().getOrCreateTag().getBoolean(OPEN_TAG)) {
             Level level = pContext.getLevel();
             BlockPos pos = pContext.getClickedPos();
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof RackEntity rack) {
-                rack.getPersistentData().putInt("number", 1);
-                pContext.getItemInHand().shrink(1);
-                return InteractionResult.SUCCESS;
+                int temp = rack.getPersistentData().getInt(ChampagneRack.CONTAIN);
+                if (temp < 4) {
+                    rack.getPersistentData().putInt(ChampagneRack.CONTAIN, temp + 1);
+                    pContext.getItemInHand().shrink(1);
+                    return InteractionResult.SUCCESS;
+                } else {
+                    return InteractionResult.FAIL;
+                }
             }
         }
         return super.useOn(pContext);

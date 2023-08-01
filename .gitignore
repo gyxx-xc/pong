@@ -12,3 +12,5 @@ gradlew.bat
 LICENSE.txt
 README.txt
 .DS_Store
+out
+/bin
