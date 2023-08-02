@@ -86,7 +86,7 @@ public class Registration {
             () -> new LiquidBlock(SOURCE_CHAMPAGNE, BlockBehaviour.Properties.copy(Blocks.WATER)));
     public static final ForgeFlowingFluid.Properties CHAMPAGNE_FLUID_PROPERTIES = new ForgeFlowingFluid.Properties(
             ChampagneFluidType.CHAMPAGNE_FLUID_TYPE, SOURCE_CHAMPAGNE, FLOWING_CHAMPAGNE)
-            .slopeFindDistance(2).levelDecreasePerBlock(2).block(CHAMPAGNE_FLUID_BLOCK);
+            .slopeFindDistance(2).levelDecreasePerBlock(2).block(CHAMPAGNE_FLUID_BLOCK).bucket(null);
 
     public static final RegistryObject<SimpleParticleType> SPLASH_PARTICLES =
             PARTICLE_TYPES.register(SplashParticles.ID, () -> new SimpleParticleType(true));
