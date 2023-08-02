@@ -1,6 +1,7 @@
 package org.pongdev.pong.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -57,7 +58,9 @@ public class ChampagneRack extends HorizontalDirectionalBlock implements EntityB
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
+        return this.defaultBlockState()
+                .setValue(FACING, pContext.getHorizontalDirection())
+                .setValue(POWERED, Boolean.valueOf(false));
     }
 
     @Override
@@ -142,4 +145,12 @@ public class ChampagneRack extends HorizontalDirectionalBlock implements EntityB
         }
         return true;
     }
+    public int getSignal(BlockState pBlockState, BlockGetter pBlockAccess, BlockPos pPos, Direction pSide) {
+        return pBlockState.getValue(POWERED) ? 15 : 0;
+    }
+
+    public boolean isSignalSource(BlockState pState) {
+        return true;
+    }
+
 }

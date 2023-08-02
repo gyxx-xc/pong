@@ -13,12 +13,15 @@ public class ChampagneFluidType {
     public static final ResourceLocation WATER_FLOWING_RL = new ResourceLocation("block/water_flow");
 
     public static final RegistryObject<FluidType> CHAMPAGNE_FLUID_TYPE = register("champagne_fluid",
-            FluidType.Properties.create().lightLevel(2).density(15).viscosity(5).sound(SoundAction.get("drink"),
+            FluidType.Properties.create()
+                    .lightLevel(2)
+                    .density(5)
+                    .viscosity(1)
+                    .canHydrate(true)
+                    .sound(SoundAction.get("drink"),
                     SoundEvents.HONEY_DRINK));
-
-    // TODO: change the color
     private static RegistryObject<FluidType> register(String name, FluidType.Properties properties) {
         return Registration.FLUID_TYPES.register(name, () -> new BaseFluidType(WATER_STILL_RL, WATER_FLOWING_RL, null,
-                0xA1E038D0, new Vector3f(224f / 255f, 56f / 255f, 208f / 255f), properties));
+                0xF7F7D1A0, new Vector3f(224f / 255f, 56f / 255f, 208f / 255f), properties));
     }
 }

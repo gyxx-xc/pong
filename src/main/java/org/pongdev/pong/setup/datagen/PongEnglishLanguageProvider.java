@@ -15,6 +15,5 @@ public class PongEnglishLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         this.add(Registration.CHAMPAGNE.get(), "xb");
         this.add("itemGroup."+Registration.MODTAB_ID, "p");
-        this.add("chat.pong.one_goblet", "one_goblet to have champagne");
     }
 }

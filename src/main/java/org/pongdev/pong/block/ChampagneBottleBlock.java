@@ -2,13 +2,17 @@ package org.pongdev.pong.block;
 
 import it.unimi.dsi.fastutil.ints.Int2BooleanFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -40,5 +44,14 @@ public class ChampagneBottleBlock extends FallingBlock {
         // TODO: play sound of braking glass
         // TODO: make the cloud
         super.onBrokenAfterFall(pLevel, pPos, pFallingBlock);
+        pLevel.playLocalSound(pPos.getCenter().x, pPos.getCenter().y, pPos.getCenter().z, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1, 1, true);
+    }
+
+    @Override
+    public void onProjectileHit(Level pLevel, BlockState pState, BlockHitResult pHit, Projectile pProjectile) {
+        super.onProjectileHit(pLevel, pState, pHit, pProjectile);
+        BlockPos pPos = pHit.getBlockPos();
+        pLevel.playLocalSound(pPos.getCenter().x, pPos.getCenter().y, pPos.getCenter().z, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 3, 1, true);
+        pLevel.removeBlock(pHit.getBlockPos(), false);
     }
 }

@@ -13,7 +13,7 @@ import org.pongdev.pong.Pong;
 
 public class PlugRender<T extends Entity> extends EntityRenderer<Entity> {
     public static final ResourceLocation TEXTURE =
-            new ResourceLocation(Pong.MODID, "textures/entity/marble.png");
+            new ResourceLocation(Pong.MODID, "textures/entity/plug.png");
     protected final EntityModel<PlugEntity> model;
 
     public PlugRender(EntityRendererProvider.Context pContext) {
