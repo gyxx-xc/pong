@@ -1,0 +1,9 @@
+{
+  "block.pong.champagne_bottle": "香槟",
+  "effect.pong.drunk": "醉酒",
+  "entity.pong.plug": "瓶塞",
+  "item.pong.champagne_sabre": "香槟刀",
+  "item.pong.goblet": "酒杯",
+  "item.pong.plug": "塞子",
+  "itemGroup.pong_tab": "开香槟"
+}

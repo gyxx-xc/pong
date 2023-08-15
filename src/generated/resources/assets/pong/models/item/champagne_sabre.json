@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "pong:item/champagne_sabre_broken",
+      "predicate": {
+        "pong:damage": 250.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "pong:item/champagne_sabre"
+  }
+}
