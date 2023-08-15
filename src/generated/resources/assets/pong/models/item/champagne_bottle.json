@@ -1,0 +1,56 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "pong:item/champagne_bottle_0",
+      "predicate": {
+        "pong:open": 0.0,
+        "pong:power": 5.0
+      }
+    },
+    {
+      "model": "pong:item/champagne_bottle_1",
+      "predicate": {
+        "pong:open": 0.0,
+        "pong:power": 10.0
+      }
+    },
+    {
+      "model": "pong:item/champagne_bottle_2",
+      "predicate": {
+        "pong:open": 0.0,
+        "pong:power": 20.0
+      }
+    },
+    {
+      "model": "pong:item/champagne_bottle_3",
+      "predicate": {
+        "pong:open": 0.0,
+        "pong:power": 30.0
+      }
+    },
+    {
+      "model": "pong:item/champagne_bottle_4",
+      "predicate": {
+        "pong:open": 0.0,
+        "pong:power": 40.0
+      }
+    },
+    {
+      "model": "pong:item/champagne_bottle_5",
+      "predicate": {
+        "pong:open": 0.0,
+        "pong:power": 48.0
+      }
+    },
+    {
+      "model": "pong:item/champagne_bottle_open",
+      "predicate": {
+        "pong:open": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "pong:item/champagne_bottle"
+  }
+}
