@@ -3,7 +3,6 @@
 other/*
 run/*
 build/*
-src/generated/*
 *.sh
 mcmodsrepo/*
 gradle/*
