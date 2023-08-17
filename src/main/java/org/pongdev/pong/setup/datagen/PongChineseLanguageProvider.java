@@ -19,6 +19,7 @@ public class PongChineseLanguageProvider extends LanguageProvider {
         this.add(Registration.PLUG.get(), "塞子");
         this.add(Registration.PLUG_ENTITY.get(), "瓶塞");
         this.add(Registration.DRUNK.get(), "醉酒");
+        this.add(Registration.CHAMPAGNE_RACK_BLOCK.get(), "香槟架");
         this.add("itemGroup."+Registration.MODTAB_ID, "开香槟");
     }
 }
