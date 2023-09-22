@@ -28,7 +28,7 @@ public class PongRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_logs", has(ItemTags.PLANKS))
                 .save(pWriter);
 
-        ShapedRecipeBuilder
+        ShapedRecipeBuilder //香槟架
                 .shaped(RecipeCategory.DECORATIONS, Registration.CHAMPAGNE_RACK_ITEM.get())
                 .define('X', ItemTags.PLANKS)
                 .define('Y', Tags.Items.COBBLESTONE)
